@@ -3,13 +3,13 @@ let userSeq = [];
 
 let btns = ["yellow", "red", "purple", "green"];
 
-let started = flase;
+let started = false;
 let level = 0;
 
 let h2 = document.querySelector("h2");
 
 document.addEventListener("keypress", function () {
-    if (started == flase) {
+    if (started == false) {
         console.log("game is started");
         started = true;
 
@@ -38,14 +38,14 @@ function levelUp() {
 
     let randIdx = Math.floor(Math.random() * 3);
     let randColor = btns[randIdx];
-    let randbtn = document.querySelector(`.${randColor}`);
+    let randBtn = document.querySelector(`.${randColor}`);
     gameSeq.push(randColor);
     console.log(gameSeq);
-    gameFlash(randbtn);
+    gameFlash(randBtn);
 }
 
-function checkAns() {
-    let idx = level - 1;
+function checkAns(idx) {
+    //let idx = level - 1;
 
     if (userSeq[idx] === gameSeq[idx]) {
        if (userSeq.length == gameSeq.length) {
@@ -63,12 +63,12 @@ function checkAns() {
 
 function btnPress() {
     let btn = this;
-    btnFlash(btn);
+    userFlash(btn);
 
     userColor = btn.getAttribute("id");
     userSeq.push(userColor);
 
-    checkAns();
+    checkAns(userSeq.length-1);
 }
 
 let allBtns = document.querySelectorAll(".btn");
@@ -77,7 +77,7 @@ for (btn of allBtns) {
 }
 
 function reset() {
-    started = flase;
+    started = false;
     gameSeq = [];
     userSeq = [];
     level = 0;
